@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodo, toggleTodo, removeTodo } from './todosSlice';
+import { addTodo, toggleTodo, removeTodo, fetchTodos } from './todosSlice';
 import './todos.css';
 
+
 const Todo = () => {
+    useEffect(() => {
+        dispatch(fetchTodos)
+    }, [])
+
     const [text, setText] = useState('');
     const todos = useSelector((state) => state.todos);
     const dispatch = useDispatch();
