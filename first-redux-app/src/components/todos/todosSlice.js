@@ -1,46 +1,55 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
-    const response = await fetch("http://localhost:3001/api/todos");
-    const data = await response.json()
-    return data
-})
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
+import { fetchTodos, addTodo, toggleTodo, deleteTodo } from "./todosThunks";
 
 const sortTodos = (todoArray) => {
-    todoArray.sort((todo1, todo2) => {
-        if (todo1.completed === todo2.completed) return 0
-        return todo1.completed ? 1 : -1
-    })
-}
+  todoArray.sort((todo1, todo2) => {
+    if (todo1.done === todo2.done) return 0;
+    return todo1.done ? 1 : -1;
+  });
+};
+
+const initialState = {
+  todos: [],
+  status: "idle",
+  error: null,
+};
 
 const todosSlice = createSlice({
-    name: 'todos',
-    initialState: [],
-    reducers: {
-        addTodo(state, action) {
-            const text = action.payload
-            state.push({ id: Date.now(), text, completed: false })
-            sortTodos(state);
-        },
-        toggleTodo(state, action) {
-            const todo = state.find(todo => todo.id === action.payload)
-            if (todo) {
-                todo.completed = !todo.completed
-            }
-            sortTodos(state);
-        },
-        removeTodo(state, action) {
-            return state.filter((todo) => todo.id !== action.payload)
-        }
-    },
-    extraReducers: (builder) => {
-        builder.addCase(fetchTodos.fulfilled, (state, action) => {
-            return action.payload;
-        })
-    }
-})
+  name: "todos",
+  initialState,
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.todos = action.payload;
+        sortTodos(state.todos);
+      })
+      .addCase(fetchTodos.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchTodos.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(addTodo.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.todos.push(action.payload);
+        sortTodos(state.todos);
+      })
+      .addCase(toggleTodo.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            todo.done = !todo.done;
+          }
+        });
+        sortTodos(state.todos);
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      });
+  },
+});
 
-
-
-export const { addTodo, toggleTodo, removeTodo } = todosSlice.actions;
-export default todosSlice.reducer
+export default todosSlice.reducer;

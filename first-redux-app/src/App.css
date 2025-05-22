@@ -1,63 +1,63 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 html {
-    background-color: #F082AC;
+  background-color: #f082ac;
 }
 
 #root {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
-
 button:hover {
-    color: #F082AC;
+  color: #f082ac;
 }
 
 input {
-    flex: 1;
-    outline: none;
-    border: none;
-    padding-left: 1rem;
-    background-color: transparent;
-    min-width: 1rem;
+  flex: 1;
+  outline: none;
+  border: none;
+  padding-left: 1rem;
+  background-color: transparent;
+  min-width: 1rem;
 }
 
 input::placeholder {
-    color: #e4e4e488;
+  color: #e4e4e488;
 }
 
 input:focus::placeholder {
-    color: transparent;
+  color: transparent;
 }
 
 button {
-    background-color: #EA4C89;
-    border-radius: 1.5rem;
-    border-style: none;
-    box-sizing: border-box;
-    cursor: pointer;
-    height: 2.5rem;
-    line-height: 1.25rem;
-    outline: none;
-    padding: 0.625rem 1rem;
+  background-color: #ea4c89;
+  border-radius: 1.5rem;
+  border-style: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 2.5rem;
+  line-height: 1.25rem;
+  outline: none;
+  padding: 0.625rem 1rem;
 }
 
 .app {
-    width: 60%;
-    margin: 0.5rem 0;
+  width: 60%;
+  margin: 0.5rem 0;
 }
