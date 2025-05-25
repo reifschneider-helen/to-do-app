@@ -22,12 +22,12 @@ export const toggleTodo = createAsyncThunk("todos/toggleTodo", async (id) => {
   const response = await fetch(`http://localhost:3001/api/todos/${id}`, {
     method: "PATCH",
   });
-  const resp = await response.json();
-  return resp;
+  const todo = await response.json();
+  return todo;
 });
 
 export const deleteTodo = createAsyncThunk("todos/deleteTodo", async (id) => {
-  const response = await fetch(`http://localhost:3001/api/todos/${id}`, {
+  await fetch(`http://localhost:3001/api/todos/${id}`, {
     method: "DELETE",
   });
   return id;
