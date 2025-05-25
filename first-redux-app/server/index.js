@@ -33,7 +33,7 @@ server.post("/api/todos", (req, res) => {
   const newTodo = {
     id: Date.now(),
     text: text.trim(),
-    done: false,
+    done: req.body.done ?? false,
   };
   todos.push(newTodo);
   saveTodos(todos);
@@ -61,4 +61,8 @@ server.delete("/api/todos/:id", (req, res) => {
   res.status(200).json(newTodos);
 });
 
-server.listen(3001, console.log("server ist gestartet", Date.now()));
+const app = server.listen(3001, () => {
+  console.log("server ist gestartet", Date.now());
+});
+
+module.exports = app;
