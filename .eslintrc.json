@@ -1,0 +1,15 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "padding-line-between-statements": [
+      "warn",
+      { "blankLine": "always", "prev": "const", "next": "return" },
+      { "blankLine": "always", "prev": "*", "next": "function" },
+      { "blankLine": "always", "prev": "function", "next": "function" }
+    ]
+  }
+}
