@@ -1,7 +1,6 @@
-import React from "react";
-import Todo from "./components/todos/todos";
-import DateTime from "./components/dateTime/dateTime";
-import "./App.css";
+import Todo from './components/todos/todos';
+import DateTime from './components/dateTime/dateTime';
+import './App.css';
 
 function App() {
   return (
