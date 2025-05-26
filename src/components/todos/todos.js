@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchTodos, addTodo, toggleTodo, deleteTodo } from "./todosThunks";
-import "./todos.css";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchTodos, addTodo, toggleTodo, deleteTodo } from './todosThunks';
+import './todos.css';
 
 const Todo = () => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const { todos, status, error } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
 
@@ -18,18 +18,19 @@ const Todo = () => {
 
   const handleAddTodo = () => {
     if (text.trim()) {
-      setText("");
+      setText('');
       dispatch(addTodo(text));
     } else {
-      setText("");
+      setText('');
     }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleAddTodo();
     }
-    if (e.key === "Escape") {
+
+    if (e.key === 'Escape') {
       document.activeElement.blur();
     }
   };
@@ -43,11 +44,12 @@ const Todo = () => {
   };
 
   const getBackgroundColor = (todo) => {
-    return todo.done ? "#b33968" : "#EA4C89";
+    return todo.done ? '#b33968' : '#EA4C89';
   };
 
-  if (status === "loading") return <p>Loading..</p>;
-  if (status === "failed") return <p>Error: {error}</p>;
+  if (status === 'loading') return <p>Loading..</p>;
+
+  if (status === 'failed') return <p>Error: {error}</p>;
 
   return (
     <div>
@@ -79,12 +81,12 @@ const Todo = () => {
               onClick={() => handleRemoveTodo(todo.id)}
               style={{ backgroundColor: getBackgroundColor(todo) }}
             >
-              {" "}
-              X{" "}
-            </button>{" "}
+              {' '}
+              X{' '}
+            </button>{' '}
           </li>
-        ))}{" "}
-      </ul>{" "}
+        ))}{' '}
+      </ul>{' '}
     </div>
   );
 };

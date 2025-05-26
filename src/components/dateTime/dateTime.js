@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const DateTime = () => {
   const [date, setDate] = useState(new Date());
@@ -7,13 +7,14 @@ const DateTime = () => {
     const timer = setInterval(() => {
       setDate(new Date());
     }, 60000);
+
     return () => clearInterval(timer);
   }, []);
 
   return (
     <div>{`${date.toLocaleDateString()} ${
-      (date.getHours() < 10 ? "0" : "") + date.getHours()
-    }:${(date.getMinutes() < 10 ? "0" : "") + date.getMinutes()}`}</div>
+      (date.getHours() < 10 ? '0' : '') + date.getHours()
+    }:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`}</div>
   );
 };
 
