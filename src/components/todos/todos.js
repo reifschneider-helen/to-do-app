@@ -66,19 +66,19 @@ const Todo = () => {
       </div>
       <ul>
         {todos.map((todo) => (
-          <li className="todoContainer" key={todo.id}>
+          <li className="todoContainer" key={todo._id}>
             <button
               className="todo"
               placeholder="todo"
               type="text"
-              onClick={() => handleToggleTodo(todo.id)}
+              onClick={() => handleToggleTodo(todo._id)}
               style={{ backgroundColor: getBackgroundColor(todo) }}
             >
               {todo.text}
             </button>
             <button
               className="removeButton"
-              onClick={() => handleRemoveTodo(todo.id)}
+              onClick={() => handleRemoveTodo(todo._id)}
               style={{ backgroundColor: getBackgroundColor(todo) }}
             >
               {' '}

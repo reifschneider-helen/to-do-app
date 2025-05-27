@@ -1,4 +1,4 @@
-import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { fetchTodos, addTodo, toggleTodo, deleteTodo } from './todosThunks';
 
 const sortTodos = (todoArray) => {
@@ -40,7 +40,7 @@ const todosSlice = createSlice({
       .addCase(toggleTodo.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.todos.map((todo) => {
-          if (todo.id === action.payload.id) {
+          if (todo._id === action.payload._id) {
             todo.done = !todo.done;
           }
         });
@@ -48,7 +48,7 @@ const todosSlice = createSlice({
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+        state.todos = state.todos.filter((todo) => todo._id !== action.payload);
       });
   },
 });
