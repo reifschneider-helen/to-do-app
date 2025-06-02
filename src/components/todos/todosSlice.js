@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchTodos, addTodo, toggleTodo, deleteTodo } from './todosThunks';
 
-const sortTodos = (todoArray) => {
+export const sortTodos = (todoArray) => {
   todoArray.sort((todo1, todo2) => {
     if (todo1.done === todo2.done) return 0;
 
