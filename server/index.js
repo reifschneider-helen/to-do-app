@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config('.env');
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./db');
@@ -8,7 +8,7 @@ const server = express();
 server.use(cors({ origin: 'http://localhost:3000' }));
 server.use(express.json());
 
-connectDB();
+// connectDB();
 
 server.get('/api/todos', async (req, res) => {
   try {
@@ -65,8 +65,18 @@ server.delete('/api/todos/:id', async (req, res) => {
   }
 });
 
-const app = server.listen(3001, () => {
-  console.log('server ist gestartet', Date.now());
-});
+module.exports = server;
 
-module.exports = app;
+if (require.main === module) {
+  (async () => {
+    try {
+      await connectDB();
+      server.listen(3001, () => {
+        console.log('server ist gestartet', Date.now());
+      });
+    } catch (error) {
+      console.error('DB connection failed:', error);
+      process.exit(1);
+    }
+  })();
+}
