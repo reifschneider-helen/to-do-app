@@ -1,80 +1,87 @@
-// const request = require('supertest');
-// const server = require('../index.js');
+require('dotenv').config({ path: '.test.env' });
+const request = require('supertest');
+const mongoose = require('mongoose');
+const connectDB = require('../db.js');
+const server = require('../index.js');
 
-// afterAll((done) => {
-//   server.close(done);
-// });
+const Todo = require('../models/todo.js');
 
-// describe('API /api/todos', () => {
-//   describe('GET /api/todos', () => {
-//     test('should return todos list', async () => {
-//       const res = await request(server).get('/api/todos');
+jest.setTimeout(20000);
 
-//       expect(res.statusCode).toBe(200);
-//       expect(Array.isArray(res.body)).toBe(true);
-//     });
-//   });
+beforeAll(async () => {
+  await connectDB();
+});
 
-//   describe('POST /api/todos', () => {
-//     test('should add a new todo', async () => {
-//       const newTodo = { text: 'newTodo' };
+afterAll(async () => {
+  //   await mongoose.connection.db.dropDatabase();
+  await mongoose.connection.close();
+});
 
-//       const res = await request(server)
-//         .post('/api/todos')
-//         .send(newTodo)
-//         .set('Content-Type', 'application/json');
+describe('API test with MongoDB', () => {
+  describe('POST /api/todos', () => {
+    it('should create a new todo', async () => {
+      const res = await request(server)
+        .post('/api/todos')
+        .send({ text: 'MongoDB test todo' });
 
-//       expect(res.statusCode).toBe(201);
-//       expect(res.body.text).toBe('newTodo');
-//       expect(res.body.done).toBe(false);
-//     });
+      expect(res.statusCode).toBe(201);
+      expect(res.body.text).toBe('MongoDB test todo');
+      expect(res.body.done).toBe(false);
+    });
 
-//     test('should return error', async () => {
-//       const newTodo = { text: '' };
+    it('Should return an error', async () => {
+      const res = await request(server).post('/api/todos').send({ text: '' });
 
-//       const res = await request(server)
-//         .post('/api/todos')
-//         .send(newTodo)
-//         .set('Content-Type', 'application/json');
+      expect(res.statusCode).toBe(400);
+      expect(res.body.text).toBe(undefined);
+    });
+  });
 
-//       expect(res.statusCode).toBe(400);
-//       expect(res.body.text).toBe(undefined);
-//     });
-//   });
+  describe('GET /api/todos', () => {
+    it('should return a list of todos', async () => {
+      const res = await request(server).get('/api/todos');
 
-//   describe('PATCH /api/todos/:id', () => {
-//     test('should reverse done field', async () => {
-//       const newTodo = { text: 'newTodo', done: true };
-//       const postRes = await request(server).post('/api/todos').send(newTodo);
-//       const id = postRes.body.id;
+      expect(res.statusCode).toBe(200);
+      expect(Array.isArray(res.body)).toBe(true);
+    });
+  });
 
-//       const res = await request(server).patch(`/api/todos/${id}`);
+  //   describe('PATCH api/todos');
+  //   describe('DELETE api/todos');
 
-//       expect(res.statusCode).toBe(200);
-//       expect(res.body.done).toBe(false);
-//     });
+  //   describe('PATCH /api/todos/:id', () => {
+  //     test('should reverse done field', async () => {
+  //       const newTodo = { text: 'newTodo', done: true };
+  //       const postRes = await request(server).post('/api/todos').send(newTodo);
+  //       const id = postRes.body.id;
 
-//     test('should return error', async () => {
-//       const invalidId = 1234;
+  //       const res = await request(server).patch(`/api/todos/${id}`);
 
-//       const res = await request(server).patch(`/api/todos/${invalidId}`);
+  //       expect(res.statusCode).toBe(200);
+  //       expect(res.body.done).toBe(false);
+  //     });
 
-//       expect(res.statusCode).toBe(404);
-//       expect(res.body.error).toBe('Todo is not existed');
-//     });
-//   });
+  //     test('should return error', async () => {
+  //       const invalidId = 1234;
 
-//   describe('DELETE /api/todos/:id', () => {
-//     test('should delete todo', async () => {
-//       const newTodo = { text: 'Todo to delete' };
-//       const postRes = await request(server).post('/api/todos').send(newTodo);
-//       const id = postRes.body.id;
+  //       const res = await request(server).patch(`/api/todos/${invalidId}`);
 
-//       const res = await request(server).delete(`/api/todos/${id}`);
+  //       expect(res.statusCode).toBe(404);
+  //       expect(res.body.error).toBe('Todo is not existed');
+  //     });
+  //   });
 
-//       expect(res.statusCode).toBe(200);
-//       expect(Array.isArray(res.body)).toBe(true);
-//       expect(res.body.find((todo) => todo.id === id)).toBe(undefined);
-//     });
-//   });
-// });
+  //   describe('DELETE /api/todos/:id', () => {
+  //     test('should delete todo', async () => {
+  //       const newTodo = { text: 'Todo to delete' };
+  //       const postRes = await request(server).post('/api/todos').send(newTodo);
+  //       const id = postRes.body.id;
+
+  //       const res = await request(server).delete(`/api/todos/${id}`);
+
+  //       expect(res.statusCode).toBe(200);
+  //       expect(Array.isArray(res.body)).toBe(true);
+  //       expect(res.body.find((todo) => todo.id === id)).toBe(undefined);
+  //     });
+  //   });
+});
