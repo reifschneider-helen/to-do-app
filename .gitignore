@@ -6,7 +6,7 @@
 /.pnp
 .pnp.js
 .env
-**/.env/
+.test.env
 /server/node_modules
 
 # testing
