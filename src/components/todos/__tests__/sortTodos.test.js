@@ -8,7 +8,6 @@ describe('sortTodos()', () => {
       { text: 'second complete todo', done: true },
       { text: 'second incomplete todo', done: false },
     ];
-
     const expected = [
       { text: 'first incomplete todo', done: false },
       { text: 'second incomplete todo', done: false },
