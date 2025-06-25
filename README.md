@@ -7,7 +7,7 @@ Diese ToDo-Anwendung wurde mit React, TypeScript und Redux entwickelt. Sie ermö
 - Aufgaben hinzufügen, löschen, abhaken
 - Zähler für offene Aufgaben
 - Dark Mode (umschaltbar)
-- Lokale Speicherung mit `localStorage`
+– Datenspeicherung in MongoDB über ein eigenes Backend (REST API)
 - Tastatursteuerung (Enter zum Hinzufügen)
 
 ## 🛠️ Verwendete Technologien
@@ -16,6 +16,8 @@ Diese ToDo-Anwendung wurde mit React, TypeScript und Redux entwickelt. Sie ermö
 - TypeScript
 - Redux Toolkit
 - CSS Modules
+- Node.js + Express (Backend)
+- MongoDB + Mongoose (Datenbank)
 
 ## 🔧 Installation
 
