@@ -1,6 +1,6 @@
-# 📝 ToDo-App mit TypeScript & Redux
+# 📝 ToDo-App mit JavaScript & Redux
 
-Diese ToDo-Anwendung wurde mit React, TypeScript und Redux entwickelt. Sie ermöglicht es Nutzer:innen, Aufgaben zu verwalten, zu filtern und abzuhaken. Zusätzlich gibt es einen Dark Mode und eine Anzeige offener Aufgaben.
+Diese ToDo-Anwendung wurde mit React, JavaScript und Redux entwickelt. Sie ermöglicht es Nutzer:innen, Aufgaben zu verwalten, zu filtern und abzuhaken. Zusätzlich gibt es einen Dark Mode und eine Anzeige offener Aufgaben.
 
 ## 🚀 Features
 
@@ -13,7 +13,7 @@ Diese ToDo-Anwendung wurde mit React, TypeScript und Redux entwickelt. Sie ermö
 ## 🛠️ Verwendete Technologien
 
 - React
-- TypeScript
+- JavaScript
 - Redux Toolkit
 - CSS Modules
 - Node.js + Express (Backend)
