@@ -46,42 +46,39 @@ describe('API test with MongoDB', () => {
     });
   });
 
-  //   describe('PATCH api/todos');
-  //   describe('DELETE api/todos');
+  describe('PATCH /api/todos/:id', () => {
+    it('should toggle the done field', async () => {
+      const newTodoRes = await request(server)
+        .post('/api/todos')
+        .send({ text: 'Todo to toggle done' });
 
-  //   describe('PATCH /api/todos/:id', () => {
-  //     test('should reverse done field', async () => {
-  //       const newTodo = { text: 'newTodo', done: true };
-  //       const postRes = await request(server).post('/api/todos').send(newTodo);
-  //       const id = postRes.body.id;
+      expect(newTodoRes.statusCode).toBe(201);
+      const todoId = newTodoRes.body._id;
 
-  //       const res = await request(server).patch(`/api/todos/${id}`);
+      const patchRes = await request(server).patch(`/api/todos/${todoId}`);
 
-  //       expect(res.statusCode).toBe(200);
-  //       expect(res.body.done).toBe(false);
-  //     });
+      expect(patchRes.statusCode).toBe(200);
+      expect(typeof patchRes.body.done).toBe('boolean');
+      expect(patchRes.body.done).toBe(true);
+    });
+  });
 
-  //     test('should return error', async () => {
-  //       const invalidId = 1234;
+  describe('DELETE /api/todos/:id', () => {
+    it('should delete todo', async () => {
+      const newTodo = await request(server)
+        .post('/api/todos')
+        .send({ text: 'Todo to delete' });
 
-  //       const res = await request(server).patch(`/api/todos/${invalidId}`);
+      const deleteRes = await request(server).delete(
+        `/api/todos/${newTodo.body._id}`
+      );
 
-  //       expect(res.statusCode).toBe(404);
-  //       expect(res.body.error).toBe('Todo is not existed');
-  //     });
-  //   });
+      expect(deleteRes.statusCode).toBe(200);
 
-  //   describe('DELETE /api/todos/:id', () => {
-  //     test('should delete todo', async () => {
-  //       const newTodo = { text: 'Todo to delete' };
-  //       const postRes = await request(server).post('/api/todos').send(newTodo);
-  //       const id = postRes.body.id;
-
-  //       const res = await request(server).delete(`/api/todos/${id}`);
-
-  //       expect(res.statusCode).toBe(200);
-  //       expect(Array.isArray(res.body)).toBe(true);
-  //       expect(res.body.find((todo) => todo.id === id)).toBe(undefined);
-  //     });
-  //   });
+      const getRes = await request(server).get('/api/todos');
+      expect(getRes.statusCode).toBe(200);
+      expect(Array.isArray(getRes.body)).toBe(true);
+      expect(getRes.body.find((todo) => todo._id === newTodo.body._id)).toBe(undefined);
+    });
+  });
 });
