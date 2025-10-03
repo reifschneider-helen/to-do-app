@@ -35,8 +35,8 @@ npm install
 
 ### 3. Setup MongoDB
    You need to have access to a MongoDB instance. This can be a local MongoDB server or a cloud MongoDB service like MongoDB Atlas.
-	•	Create a MongoDB database and get the connection URI.
-	•	Create a .env file in the backend folder with your MongoDB connection string, for example:
+- Create a MongoDB database and get the connection URI.
+- Create a .env file in the backend folder with your MongoDB connection string, for example:
 MONGO_URI=your_mongodb_connection_string
 PORT=5000
 
